@@ -4,13 +4,11 @@
 pwd
 ls -la $HOME
 
-# create nginx conf file with PORT and HOME directory from cloudfoundry environment variables
-mv $HOME/nginx/conf/nginx.conf $HOME/nginx/conf/nginx.conf.original
-sed "s|\(^\s*listen\s*\)80|\1$PORT|" $HOME/nginx/conf/nginx.conf.original > $HOME/nginx/conf/nginx.conf
-sed -i "s|\(^\s*root\s*\)html|\1$HOME/public|" $HOME/nginx/conf/nginx.conf
+# Create environment for Karaf execution
+export JAVA_HOME=$HOME/jdk
+export KARAF_HOME=$HOME/apache-karaf
+export PATH=$JAVA_HOME/bin:$PATH
 
-# debug output
-cat $HOME/nginx/conf/nginx.conf
+# start Karaf as background task ..
+$KARAF_HOME/bin/start
 
-# start nginx web server
-$HOME/nginx/bin/nginx -c $HOME/nginx/conf/nginx.conf -p $HOME/nginx

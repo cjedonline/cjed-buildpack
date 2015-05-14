@@ -19,34 +19,25 @@ echo $cache_dir
 echo $buildpack_dir
 env
 
-# download and build nginx
+# download and configure required software ...
 mkdir -p $cache_dir
 cd $cache_dir
-wget http://nginx.org/download/nginx-1.6.2.tar.gz
-tar xzf nginx-1.6.2.tar.gz
-cd nginx-1.6.2
-./configure
-make
+wget http://http://n2build2003.emea.tibco.com/software/cjedtest/jdk-7u67-linux-x64.tar.gz
+wget http://http://n2build2003.emea.tibco.com/software/cjedtest/apache-karaf-3.0.3.tar.gz
+tar xzf apache-karaf-3.0.3.tar.gz
+tar xzf jdk-7u67-linux-x64.tar.gz
 
-# create hierarchy with only needed files
-mkdir -p $cache_dir/nginx/bin
-mkdir -p $cache_dir/nginx/conf
-mkdir -p $cache_dir/nginx/logs
-cp $cache_dir/nginx-1.6.2/objs/nginx $cache_dir/nginx/bin/nginx
-cp $cache_dir/nginx-1.6.2/conf/nginx.conf $cache_dir/nginx/conf/nginx.conf
-cp $cache_dir/nginx-1.6.2/conf/mime.types $cache_dir/nginx/conf/mime.types
+# remove versions from directories
+mv $cache_dir/apache-karaf.3.0.3 $cache_dir/apache-karaf
+mv $cache_dir/jdk1.7.0_67 $cache_dir/jdk
 
-# move applicaiton files into public directory
-mkdir -p $cache_dir/public
-mv $app_files_dir/* $cache_dir/public/
-# copy nginx error template
-cp $cache_dir/nginx-1.6.2/html/50x.html $cache_dir/public/50x.html
+# configure Karaf webconsole to deploy and run on port 80
+echo "org.osgi.service.http.port=$PORT" > $cache_dir/apache-karaf/etc/org.ops4j.pax.web.cfg
+sed 's/^featuresBoot=.*$/&,webconsole/' $cache_dir/apache-karaf/etc/org.apache.karaf.features.cfg > $cache_dir/karaf.features.cfg
+mv -f $cache_dir/karaf.features.cfg $cache_dir/apache-karaf/etc/org.apache.karaf.features.cfg
 
 # put everything in place for droplet creation
 mv $buildpack_dir/bin/launch.sh $app_files_dir/
-mv $cache_dir/public $app_files_dir/
-mv $cache_dir/nginx $app_files_dir/
+mv $cache_dir/apache-karaf $app_files_dir/
+mv $cache_dir/jdk $app_files_dir/
 
-# ensure manifest not in public directory
-if [ -f $cache_dir/public/manifest.yml ]; then rm $cache_dir/public/manifest.yml; fi
-if [ -f $cache_dir/public/stackato.yml ]; then rm $cache_dir/public/stackato.yml; fi
