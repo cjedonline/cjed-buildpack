@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 
 cat <<YAML
----
+config_vars:
+    CJED_ENV: test-data
 default_process_types:
-  web: ./launch.sh
+    web: ./launch.sh
 YAML
