@@ -28,7 +28,7 @@ tar xzf apache-karaf-3.0.3.tar.gz
 tar xzf jdk-7u67-linux-x64.tar.gz
 
 # remove versions from directories
-mv $cache_dir/apache-karaf.3.0.3 $cache_dir/apache-karaf
+mv $cache_dir/apache-karaf-3.0.3 $cache_dir/apache-karaf
 mv $cache_dir/jdk1.7.0_67 $cache_dir/jdk
 
 # configure Karaf webconsole to deploy and run on port 80
