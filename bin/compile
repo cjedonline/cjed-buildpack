@@ -32,7 +32,9 @@ mv $cache_dir/apache-karaf-3.0.3 $cache_dir/apache-karaf
 mv $cache_dir/jdk1.7.0_67 $cache_dir/jdk
 
 # configure Karaf webconsole to deploy and run on port 80
-echo "org.osgi.service.http.port=$PORT" > $cache_dir/apache-karaf/etc/org.ops4j.pax.web.cfg
+
+echo "org.osgi.service.http.port=$VCAP_APP_PORT"
+echo "org.osgi.service.http.port=$VCAP_APP_PORT" > $cache_dir/apache-karaf/etc/org.ops4j.pax.web.cfg
 sed 's/^featuresBoot=.*$/&,webconsole/' $cache_dir/apache-karaf/etc/org.apache.karaf.features.cfg > $cache_dir/karaf.features.cfg
 mv -f $cache_dir/karaf.features.cfg $cache_dir/apache-karaf/etc/org.apache.karaf.features.cfg
 
