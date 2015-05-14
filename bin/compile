@@ -22,8 +22,8 @@ env
 # download and configure required software ...
 mkdir -p $cache_dir
 cd $cache_dir
-wget http://http://n2build2003.emea.tibco.com/software/cjedtest/jdk-7u67-linux-x64.tar.gz
-wget http://http://n2build2003.emea.tibco.com/software/cjedtest/apache-karaf-3.0.3.tar.gz
+wget http://n2build2003.emea.tibco.com/software/cjedtest/jdk-7u67-linux-x64.tar.gz
+wget http://n2build2003.emea.tibco.com/software/cjedtest/apache-karaf-3.0.3.tar.gz
 tar xzf apache-karaf-3.0.3.tar.gz
 tar xzf jdk-7u67-linux-x64.tar.gz
 
