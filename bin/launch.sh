@@ -17,5 +17,5 @@ sed 's/^featuresBoot=.*$/&,webconsole/' $KARAF_HOME/etc/org.apache.karaf.feature
 mv -f $KARAF_HOME/karaf.features.cfg$KARAF_HOME/etc/org.apache.karaf.features.cfg
 
 # start Karaf as background task ..
-$KARAF_HOME/bin/start
+sh $KARAF_HOME/bin/karaf
 
