@@ -36,3 +36,8 @@ mv $buildpack_dir/bin/launch.sh $app_files_dir/
 mv $cache_dir/apache-karaf $app_files_dir/
 mv $cache_dir/jdk $app_files_dir/
 
+# remove stuff left in the cache
+rm -f $cache_dir/*.tar.gz
+
+cd $app_files_dir
+ls -la
