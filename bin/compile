@@ -40,4 +40,9 @@ mv $cache_dir/jdk $app_files_dir/
 rm -f $cache_dir/*.tar.gz
 
 cd $app_files_dir
+echo "List of files in the app_file_dir"
 ls -la
+echo "List of files in the jdk dir"
+ls -la jdk
+echo "List of files in the Karaf dir"
+ls -la apache-karaf
