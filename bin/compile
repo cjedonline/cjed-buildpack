@@ -20,29 +20,30 @@ echo $buildpack_dir
 env
 
 # download and configure required software ...
+# tar xzf 
 mkdir -p $cache_dir
 cd $cache_dir
-wget http://10.100.87.149/software/cjedtest/jdk-7u67-linux-x64.tar.gz > stuff.log
-wget http://10.100.87.149/software/cjedtest/apache-karaf-3.0.3.tar.gz >> stuff.log
-tar xzf apache-karaf-3.0.3.tar.gz >> stuff.log
-tar xzf jdk-7u67-linux-x64.tar.gz >> stuff.log
+wget http://10.100.87.149/software/cjedtest/jre-7u76-linux-x64.gz > stuff.log
+wget http://10.100.87.149/software/cjedtest/apache-servicemix-5.4.0.zip >> stuff.log
+unzip apache-servicemix-5.4.0.zip >> stuff.log
+tar xzf jre-7u76-linux-x64.gz >> stuff.log
 
 # remove versions from directories
-mv $cache_dir/apache-karaf-3.0.3 $cache_dir/apache-karaf
-mv $cache_dir/jdk1.7.0_67 $cache_dir/jdk
+mv $cache_dir/apache-servicemix-5.4.0 $cache_dir/apache-servicemix
+mv $cache_dir/jre1.7.0_76 $cache_dir/jre
 
 # put everything in place for droplet creation
 mv $buildpack_dir/bin/launch.sh $app_files_dir/
-mv $cache_dir/apache-karaf $app_files_dir/
-mv $cache_dir/jdk $app_files_dir/
+mv $cache_dir/apache-servicemix $app_files_dir/
+mv $cache_dir/jre $app_files_dir/
 
 # remove stuff left in the cache
-rm -f $cache_dir/*.tar.gz
+# rm -f $cache_dir/*.tar.gz
 
 cd $app_files_dir
 echo "List of files in the app_file_dir"
 ls -la
 echo "List of files in the jdk dir"
-ls -la jdk
+ls -la jre
 echo "List of files in the Karaf dir"
-ls -la apache-karaf
+ls -la apache-servicemix
