@@ -23,8 +23,12 @@ env
 # tar xzf 
 mkdir -p $cache_dir
 cd $cache_dir
-wget http://10.100.87.149/software/cjedtest/jre-7u76-linux-x64.gz > stuff.log
-wget http://10.100.87.149/software/cjedtest/apache-servicemix-5.4.0.zip >> stuff.log
+
+swdist_url=http://10.100.87.149/software/cjedtest
+
+wget $swdist_url/jre-7u76-linux-x64.gz > stuff.log
+wget $swdist_url/apache-servicemix-5.4.0.zip >> stuff.log
+
 unzip apache-servicemix-5.4.0.zip >> stuff.log
 tar xzf jre-7u76-linux-x64.gz >> stuff.log
 

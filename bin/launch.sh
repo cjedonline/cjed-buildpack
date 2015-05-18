@@ -8,8 +8,11 @@ ls -la $HOME
 export JAVA_HOME=$HOME/jre
 export SERVICEMIX_HOME=$HOME/apache-servicemix
 export PATH=$JAVA_HOME/bin:$PATH
+export BPM_PLUGINS=$HOME/bpm-plugins
 
 # configure Karaf webconsole to deploy and run on port 80
+
+sed "s#\(^.*\)file:.*\/plugins\/\(.*\)#\1file:$BPM_PLUGINS\/\2#g" bpmmicroservice.xml > $SERVICEMIX_HOME/deploy/bpmmicroservice.xml
 
 echo "org.osgi.service.http.port=$VCAP_APP_PORT"
 echo "org.osgi.service.http.port=$VCAP_APP_PORT" > $SERVICEMIX_HOME/etc/org.ops4j.pax.web.cfg

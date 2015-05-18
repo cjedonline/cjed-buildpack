@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-if [[ ( -f $1/application.kar ) ]]
+if [[ ( -f $1/bpmmicroservice.xml ) ]]
 then
   echo "Static" && exit 0
 else
