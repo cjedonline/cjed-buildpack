@@ -27,18 +27,22 @@ cd $cache_dir
 swdist_url=http://10.100.87.149/software/cjedtest
 
 wget $swdist_url/jre-7u76-linux-x64.gz > stuff.log
-wget $swdist_url/apache-servicemix-5.4.0.zip >> stuff.log
+wget $swdist_url/tibco-karaf-1.0.0-SNAPSHOT.tar.gz >> stuff.log
 
-unzip apache-servicemix-5.4.0.zip >> stuff.log
+tar xzf tibco-karaf-1.0.0-SNAPSHOT.tar.gz >> stuff.log
 tar xzf jre-7u76-linux-x64.gz >> stuff.log
 
 # remove versions from directories
-mv $cache_dir/apache-servicemix-5.4.0 $cache_dir/apache-servicemix
+mv $cache_dir/tibco-karaf-1.0.0-SNAPSHOT $cache_dir/karaf
 mv $cache_dir/jre1.7.0_76 $cache_dir/jre
+
+# remove certain configured repositories from Karaf install set
+sed "s#\(^featuresRepositories.*\)mvn:org.apache.karaf.features\/enterprise\/3.0.3\/xml/features,\(.*$\)#\1\2#" "$cache_dir/karaf/etc/org.apache.karaf.features.cfg" > org.apache.karaf.features.cfg
+mv -f org.apache.karaf.features.cfg "$cache_dir/karaf/etc/org.apache.karaf.features.cfg"
 
 # put everything in place for droplet creation
 mv $buildpack_dir/bin/launch.sh $app_files_dir/
-mv $cache_dir/apache-servicemix $app_files_dir/
+mv $cache_dir/karaf $app_files_dir/
 mv $cache_dir/jre $app_files_dir/
 
 # remove stuff left in the cache
@@ -50,4 +54,4 @@ ls -la
 echo "List of files in the jdk dir"
 ls -la jre
 echo "List of files in the Karaf dir"
-ls -la apache-servicemix
+ls -la karaf
