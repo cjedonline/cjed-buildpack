@@ -10,6 +10,9 @@ export KARAF_HOME=$HOME/karaf
 export PATH=$JAVA_HOME/bin:$PATH
 export BPM_PLUGINS=$HOME/bpm-plugins
 
+echo "Starting app with launch.sh"
+echo "CFBPM_PROPS = $CFBPM_PROPS"
+
 # configure Karaf webconsole to deploy and run on port 80
 
 sed "s#\(^.*\)file:.*\/plugins\/\(.*\)#\1file:$BPM_PLUGINS\/\2#g" bpmmicroservice.xml > $KARAF_HOME/deploy/bpmmicroservice.xml
