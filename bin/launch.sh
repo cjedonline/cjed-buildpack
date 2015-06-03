@@ -14,7 +14,7 @@ export BPM_PLUGINS=$HOME/bpm-plugins
 
 echo "org.osgi.service.http.port=$VCAP_APP_PORT"
 echo "org.osgi.service.http.port=$VCAP_APP_PORT" > $KARAF_HOME/etc/org.ops4j.pax.web.cfg
-sed '/\(^featuresBoot\).*=\(.*$\)/\1=\2,webconsole/' $KARAF_HOME/etc/org.apache.karaf.features.cfg > $KARAF_HOME/karaf.features.cfg
+sed 's#\(^featuresBoot\).*=\(.*$\)#\1 =\2,webconsole#' $KARAF_HOME/etc/org.apache.karaf.features.cfg > $KARAF_HOME/karaf.features.cfg
 grep "featuresBoot" $KARAF_HOME/karaf.features.cfg
 mv -f $KARAF_HOME/karaf.features.cfg $KARAF_HOME/etc/org.apache.karaf.features.cfg
 
