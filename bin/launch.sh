@@ -12,6 +12,7 @@ export BPM_PLUGINS=$HOME/bpm-plugins
 
 echo "Starting app with launch.sh"
 echo "CFBPM_PROPS = $CFBPM_PROPS"
+grep "^features" $KARAF_HOME/karaf.features.cfg
 
 # configure Karaf webconsole to deploy and run on port 80
 
