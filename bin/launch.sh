@@ -18,8 +18,8 @@ echo "org.osgi.service.http.port=$VCAP_APP_PORT" > $KARAF_HOME/etc/org.ops4j.pax
 # grep "featuresBoot" $KARAF_HOME/karaf.features.cfg
 # mv -f $KARAF_HOME/karaf.features.cfg $KARAF_HOME/etc/org.apache.karaf.features.cfg
 
-# sed "s#\(^.*\)file:.*\/plugins\/\(.*\)#\1file:$BPM_PLUGINS\/\2#g" bpmmicroservice.xml > $KARAF_HOME/deploy/bpmmicroservice.xml
-# cat $KARAF_HOME/deploy/bpmmicroservice.xml
+sed "s#\(^.*\)file:.*\/plugins\/\(.*\)#\1file:$BPM_PLUGINS\/\2#g" bpmmicroservice.xml > $KARAF_HOME/deploy/bpmmicroservice.xml
+cat $KARAF_HOME/deploy/bpmmicroservice.xml
 
 echo "Starting app with launch.sh"
 echo "CFBPM_PROPS = $CFBPM_PROPS"
