@@ -25,7 +25,7 @@ mkdir -p $cache_dir
 cd $cache_dir
 
 swdist_url=http://10.100.87.149/software/cjedtest
-karaf_dist_url=http://uk-n2-hudson1.emea.tibco.com:8282/job/bpm-karaf-dist/lastSuccessfulBuild/artifact/src/karaf/tibco-karaf/target/tibco-karaf-1.0.0-SNAPSHOT.tar.gz
+karaf_dist_url=http://10.100.87.118:8282/job/bpm-karaf-dist/lastSuccessfulBuild/artifact/src/karaf/tibco-karaf/target/tibco-karaf-1.0.0-SNAPSHOT.tar.gz
 
 wget $swdist_url/jre-7u76-linux-x64.gz > stuff.log
 wget $karaf_dist_url >> stuff.log
