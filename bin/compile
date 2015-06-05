@@ -29,6 +29,7 @@ karaf_dist_url=http://10.100.87.118:8282/job/bpm-karaf-dist/lastSuccessfulBuild/
 
 wget $swdist_url/jre-7u76-linux-x64.gz > stuff.log
 wget $karaf_dist_url >> stuff.log
+wget $swdist_url/com.tibco.bpm.karaf.dac.kar >> stuff.log
 
 tar xzf tibco-karaf-1.0.0-SNAPSHOT.tar.gz >> stuff.log
 tar xzf jre-7u76-linux-x64.gz >> stuff.log
@@ -45,6 +46,7 @@ sed 's#\(^featuresBoot[^a-zA-Z]\)\(.*$\)#\1\2,webconsole#' org.apache.karaf.feat
 mv $buildpack_dir/bin/launch.sh $app_files_dir/
 mv $cache_dir/karaf $app_files_dir/
 mv $cache_dir/jre $app_files_dir/
+mv com.tibco.bpm.karaf.dac.kar $app_files_dir/
 
 # remove stuff left in the cache
 # rm -f $cache_dir/*.tar.gz
