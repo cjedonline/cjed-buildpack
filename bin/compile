@@ -40,7 +40,8 @@ mv $cache_dir/jre1.7.0_76 $cache_dir/jre
 
 # remove certain configured repositories from Karaf install set
 # sed "s#\(^featuresRepositories.*\)mvn:org.apache.karaf.features\/enterprise\/3.0.3\/xml/features,\(.*$\)#\1\2#" "$cache_dir/karaf/etc/org.apache.karaf.features.cfg" > org.apache.karaf.features.cfg
-sed 's#\(^featuresBoot[^a-zA-Z]\)\(.*$\)#\1\2,webconsole#' org.apache.karaf.features.cfg > "$cache_dir/karaf/etc/org.apache.karaf.features.cfg"
+cp "$cache_dir/karaf/etc/org.apache.karaf.features.cfg" ./org.apache.karaf.features.cfg
+sed 's#\(^featuresBoot[^a-zA-Z]\)\(.*$\)#\1\2,webconsole#' ./org.apache.karaf.features.cfg > "$cache_dir/karaf/etc/org.apache.karaf.features.cfg"
 
 # put everything in place for droplet creation
 mv $buildpack_dir/bin/launch.sh $app_files_dir/
