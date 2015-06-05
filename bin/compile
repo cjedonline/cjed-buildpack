@@ -28,8 +28,9 @@ swdist_url=http://10.100.87.149/software/cjedtest
 karaf_dist_url=http://10.100.87.118:8282/job/bpm-karaf-dist/lastSuccessfulBuild/artifact/src/karaf/tibco-karaf/target/tibco-karaf-1.0.0-SNAPSHOT.tar.gz
 
 wget $swdist_url/jre-7u76-linux-x64.gz > stuff.log
-wget $karaf_dist_url >> stuff.log
 wget $swdist_url/com.tibco.bpm.karaf.dac.kar >> stuff.log
+# wget $karaf_dist_url >> stuff.log
+wget $swdist_url/tibco-karaf-1.0.0-SNAPSHOT.tar.gz >> stuff.log
 
 tar xzf tibco-karaf-1.0.0-SNAPSHOT.tar.gz >> stuff.log
 tar xzf jre-7u76-linux-x64.gz >> stuff.log
