@@ -50,7 +50,7 @@ sed 's#\(^featuresBoot[^a-zA-Z]\)\(.*$\)#\1\2,webconsole#' ./org.apache.karaf.fe
 mv $buildpack_dir/bin/launch.sh $app_files_dir/
 mv $cache_dir/karaf $app_files_dir/
 mv $cache_dir/jre $app_files_dir/
-mv com.tibco.bpm.karaf.dac.kar $app_files_dir/
+mv *.kar $app_files_dir/
 
 # remove stuff left in the cache
 # rm -f $cache_dir/*.tar.gz
