@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-if [[ ( -f $1/bpm-cloud-dac.xml ) ]]
+if [[ ( -f $1/*.kar ) ]]
 then
   echo "Static" && exit 0
 else
