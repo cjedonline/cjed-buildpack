@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="anttest" default="dostuff">
+	<dirname property="anttest.dir" file="${ant.file.anttest}"/>
+	<taskdef resource="net/sf/antcontrib/antlib.xml"/>
+	
+	<property name="karaf.deploy.dir" location="${anttest.dir}" />
+	
+	<target name="dostuff" >
+	
+		<xmlproperty file="bpmmicroservices.xml" collapseAttributes="true"/>
+		
+		<echo>archives.baseurl = ${archives.baseurl}</echo>
+		<echo>archives.archive.name = ${archives.archive.name}</echo>
+		<echo>archives.archive.url = ${archives.archive.url}</echo>
+		
+		<if>
+		    <and>
+				<isset property="archives.archive.name" />
+				<isset property="archives.baseurl" />
+			</and>
+			<then>
+				<for list="${archives.archive.name}" param="karname" >
+					<sequential>
+						<echo>Get Kar Archive : ${archives.baseurl}/@{karname}</echo>
+						<get src="${archives.baseurl}/@{karname}" dest="${karaf.deploy.dir}" />
+					</sequential>
+				</for>
+			</then>
+		</if>
+		
+		<if>
+		    <isset property="archives.archive.url" />
+			<then>
+				<for list="${archives.archive.url}" param="karurl" >
+					<sequential>
+						<echo>Get Kar Archive : @{karurl}</echo>
+						<get src="@{karurl}" dest="${karaf.deploy.dir}" />
+					</sequential>
+				</for>
+			</then>
+		</if>
+		
+	</target>
+</project>
