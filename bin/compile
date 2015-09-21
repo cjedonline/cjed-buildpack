@@ -24,24 +24,38 @@ env
 mkdir -p $cache_dir
 cd $cache_dir
 
-swdist_url=http://10.100.87.149/software/cjedtest
-karaf_dist_url=http://10.100.87.118:8282/job/bpm-karaf-dist/lastSuccessfulBuild/artifact/src/karaf/tibco-karaf/target/tibco-karaf-1.0.0-SNAPSHOT.tar.gz
+swdist_url=http://10.100.87.79/software/cjedtest
+jenkins_baseurl=http://10.100.87.118:8282
+
+karaf_dist_url=$jenkins_baseurl/job/bpm-karaf-dist/lastSuccessfulBuild/artifact/src/karaf/tibco-karaf/target/tibco-karaf-1.0.0-SNAPSHOT.tar.gz
+
+#
+# download Ant, Java and Karaf
 
 wget $swdist_url/jre-7u76-linux-x64.gz > stuff.log
 wget $karaf_dist_url >> stuff.log
-wget $swdist_url/com.tibco.bpm.karaf.oracle.kar >> stuff.log
-wget $swdist_url/com.tibco.bpm.karaf.dac.kar >> stuff.log
+wget $swdist_url/apache-ant-1.7.1-bin.zip >> stuff.log
+wget $swdist_url/ant-contrib-1.0b3.jar >> stuff.log
 
-# wget $karaf_dist_url >> stuff.log
+#
+# unpack Java, Ant and Karaf
 
 tar xzf tibco-karaf-1.0.0-SNAPSHOT.tar.gz >> stuff.log
 tar xzf jre-7u76-linux-x64.gz >> stuff.log
+unzip apache-ant-1.7.1-bin.zip
 
 # remove versions from directories
 mv $cache_dir/tibco-karaf-1.0.0-SNAPSHOT $cache_dir/karaf
 mv $cache_dir/jre1.7.0_76 $cache_dir/jre
 
-# remove certain configured repositories from Karaf install set
+# Set up and run Ant script to get the Kar archives to deploy into Karaf
+JAVA_HOME=$cache_dir/jre
+ANT_HOME=$cache_dir/apache-ant-1.7.1
+PATH=$JAVA_HOME/bin:$ANT_HOME/bin:$PATH
+mv ant-contrib-1.0b3.jar $ANT_HOME/lib
+ant
+
+# add the webconsole to the Karaf install set
 # sed "s#\(^featuresRepositories.*\)mvn:org.apache.karaf.features\/enterprise\/3.0.3\/xml/features,\(.*$\)#\1\2#" "$cache_dir/karaf/etc/org.apache.karaf.features.cfg" > org.apache.karaf.features.cfg
 cp "$cache_dir/karaf/etc/org.apache.karaf.features.cfg" ./org.apache.karaf.features.cfg
 sed 's#\(^featuresBoot[^a-zA-Z]\)\(.*$\)#\1\2,webconsole#' ./org.apache.karaf.features.cfg > "$cache_dir/karaf/etc/org.apache.karaf.features.cfg"
@@ -50,7 +64,6 @@ sed 's#\(^featuresBoot[^a-zA-Z]\)\(.*$\)#\1\2,webconsole#' ./org.apache.karaf.fe
 mv $buildpack_dir/bin/launch.sh $app_files_dir/
 mv $cache_dir/karaf $app_files_dir/
 mv $cache_dir/jre $app_files_dir/
-mv *.kar $app_files_dir/
 
 # remove stuff left in the cache
 # rm -f $cache_dir/*.tar.gz
